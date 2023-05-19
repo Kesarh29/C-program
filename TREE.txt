@@ -1,0 +1,73 @@
+#include<stdio.h>
+#include<stdlib.h>
+typedef struct nodeType
+{
+    struct nodeType *left;
+    int info;
+    struct nodeType *right;
+}node;
+void main()
+{
+    void insertion(node **root,int item);
+    void pretraversal(node *root);
+    node *root=NULL;
+    int ch,item;
+    while(1)
+    {
+        printf("Enter 1 for insertion 2 for traversal");
+        scanf("%d",&ch);
+        switch(ch)
+        {
+            case 1:
+                  printf("Enter the item to insert");
+                  scanf("%d",&item);
+                  insertion(&root,item);
+                  break;
+            case 2:
+                 pretraversal(root);
+                 break;
+            default:
+                 exit(0);
+        }
+    }
+}
+void insertion(node **root,int item)
+    {
+        node *ptr;
+        node*loc;
+        node*parent=NULL;
+        ptr=(node *)malloc(sizeof(node));
+        ptr->info=item;
+        ptr->left=ptr->right=NULL;
+        if(*root==NULL)
+        {
+            *root=ptr;
+        }
+        else
+        {
+            loc=*root;
+            while(loc!=NULL)
+            {
+                parent=loc;
+                if(item>loc->info)
+                   loc=loc->right;
+                else
+                   loc=loc->left;
+            }
+        
+        if(item>parent->info)
+           parent->right=ptr;
+        else
+           parent->left=ptr;
+        }
+    }
+void pretraversal(node *root)
+    {
+         if(root!=NULL)
+         {
+             printf("%d",root->info);
+             pretraversal(root->left);
+             pretraversal(root->right);
+         }
+    }
+         
